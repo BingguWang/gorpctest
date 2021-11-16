@@ -7,8 +7,10 @@ import (
 	pb "github.com/wbing441282413/goRPCTest/grpctest/proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials" // 引入grpc认证包
 	"google.golang.org/grpc/grpclog"
+	"google.golang.org/grpc/metadata" // 引入grpc meta包
 )
 
 /*
@@ -17,11 +19,37 @@ import (
 	可以用protocol buffers的proto文件来创建gRPC服务，用message类型来定义方法参数和返回类型
 
 */
+const (
+	// Address gRPC服务地址
+	Address = "127.0.0.1:8078"
+)
 
 //生成了pb.go文件后，服务端就可以实现pb中的接口了
 type ProgrammerServiceServer struct{}
 
 func (p *ProgrammerServiceServer) GetProgrammerInfo(ctx context.Context, req *pb.Request) (resp *pb.Response, err error) {
+
+	//解析metadata的信息并验证,要引入grpc meta包
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		return nil, grpc.Errorf(codes.Unauthenticated, "无Token认证信息")
+	}
+	var (
+		appid  string
+		appkey string
+	)
+
+	if val, ok := md["appid"]; ok {
+		appid = val[0]
+	}
+	if val, ok := md["appkey"]; ok {
+		appkey = val[0]
+	}
+
+	if appid != "101010" || appkey != "i am key" {
+		return nil, grpc.Errorf(codes.Unauthenticated, "token认证信息无效", "Token认证信息无效: appid=%s, appkey=%s", appid, appkey)
+	}
+
 	name := req.Name
 	if name == "wb" {
 		resp = &pb.Response{
@@ -33,13 +61,9 @@ func (p *ProgrammerServiceServer) GetProgrammerInfo(ctx context.Context, req *pb
 
 	}
 	err = nil
+	fmt.Printf("认证成功！\nToken info: appid=%s,appkey=%s", appid, appkey)
 	return
 }
-
-const (
-	// Address gRPC服务地址
-	Address = "127.0.0.1:8078"
-)
 
 //对grpc服务加上TLS认证机制，认证不是客户登录那种认证，而是是否有权利进行rpc的认证，
 //需要准备好证书，这里放在keys包下，需要引入"google.golang.org/grpc/credentials"认证包

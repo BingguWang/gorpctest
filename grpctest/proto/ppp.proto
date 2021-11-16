@@ -24,7 +24,8 @@ message  Response {
 // Enums类型名采用驼峰命名方式，字段命名采用大写字母加下划线分隔方式
 
 
-// service 定义开放调用的服务，会对应生成两个接口，一个client客户端接口，一个server服务端接口，两个机接口都没实现
+// service 定义开放调用的服务，会对应生成两个接口，一个client客户端接口，一个server服务端接口，
+// 服务端的接口没实现，但是客户端的接口已经实现了，可直接用ClientConn对象调用
 service  ProgrammerService {
     // rpc 定义服务内的 GetProgrammerInfo 远程调用
     rpc  GetProgrammerInfo (Request) returns (Response) {}
