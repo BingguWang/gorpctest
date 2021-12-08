@@ -1,0 +1,24 @@
+syntax = "proto3";  // 指定语法格式，注意 proto3 不再支持 proto2 的 required 和 optional
+
+package  grpctest;      // 指定生成的ppp.pb.go 的包名，防止命名冲突，也就是生成的go文件的package
+
+option go_package = "./proto"; //golang包名
+
+message  HelloRequest {
+  string  user_name = 1;
+}
+
+message  HelloResponse {
+  string msg = 1;
+}
+
+service  HelloService {
+    rpc  GetHello (HelloRequest) returns (HelloResponse) {}
+}
+
+
+/*
+  生成go文件的方式是： 在根目录，也就是这的\goRPCTest\grpctest下：
+   protoc -I . --go_out=plugins=grpc,paths=source_relative:. ./proto/ppp.proto
+
+*/

@@ -18,7 +18,7 @@ import (
 
 */
 
-//生成了pb.go文件后，服务端就可以实现pb中的接口了
+// 生成了pb.go文件后，服务端就可以实现pb中的接口了
 type ProgrammerServiceServer struct{}
 
 func (p *ProgrammerServiceServer) GetProgrammerInfo(ctx context.Context, req *pb.Request) (resp *pb.Response, err error) {
