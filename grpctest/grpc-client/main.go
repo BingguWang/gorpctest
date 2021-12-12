@@ -8,7 +8,6 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials" // 引入grpc认证包
-	"google.golang.org/grpc/grpclog"
 )
 
 const (
@@ -24,7 +23,7 @@ func main() {
 	conn, err := grpc.Dial(Address, grpc.WithTransportCredentials(cred)) //会返回ClientConn
 	if err != nil {
 		log.Fatalf("dial error: %v\n", err)
-		grpclog.Fatalln(err)
+		//grpclog.Fatalln(err)
 
 	}
 
