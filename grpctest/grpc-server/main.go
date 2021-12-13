@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net"
 
@@ -60,12 +61,27 @@ func main() {
 
 	//实例化grpc server服务器,并开启TLS认证
 	// s := grpc.NewServer()
-	s := grpc.NewServer(grpc.Creds(cred))
+	s := grpc.NewServer(grpc.Creds(cred)) // grpc.Creds设置TSL凭证
 
 	// 将 ProgrammerService 注册到 gRPC
 	// 注意第二个参数 ProgrammerServiceServer 是接口类型的变量
 	// 需要取地址传参
 	pb.RegisterProgrammerServiceServer(s, &ProgrammerServiceServer{}) // 注册ProgrammerServiceServer,因为接口绑定指针，所以要传指针
 
+	// 注册多个服务
+	pb.RegisterHelloServiceServer(s, &HelloServiceServiceServer{})
 	s.Serve(listen)
+}
+
+type HelloServiceServiceServer struct{}
+
+func (*HelloServiceServiceServer) GetHello(ctx context.Context, req *pb.HelloRequest) (*pb.HelloResponse, error) {
+	var err error
+	resp := &pb.HelloResponse{}
+	if req.UserName == "wb" {
+		resp.Msg = "调用成功"
+	} else {
+		err = errors.New("用户验证失败")
+	}
+	return resp, err
 }

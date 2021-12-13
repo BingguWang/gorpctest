@@ -3,7 +3,7 @@ module github.com/wbing441282413/goRPCTest/grpctest/grpc-server
 go 1.17
 
 require (
-	github.com/wbing441282413/goRPCTest v0.0.0-20211109040814-d3f11294399f
+	github.com/wbing441282413/goRPCTest v0.0.0-20211212062446-f27f191b447f
 	golang.org/x/net v0.0.0-20200822124328-c89045814202
 	google.golang.org/grpc v1.42.0
 )

@@ -47,8 +47,8 @@ github.com/rogpeppe/fastuuid v1.2.0/go.mod h1:jVj6XXZzXRy/MSR5jhDC/2q6DgLz+nrA6L
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/wbing441282413/goRPCTest v0.0.0-20211109040814-d3f11294399f h1:ZWEnQZemzjwHEuwveeZx2PGQtUEkzq/D4lG9mHjPqHI=
-github.com/wbing441282413/goRPCTest v0.0.0-20211109040814-d3f11294399f/go.mod h1:0Z4DpVGtcql123MGRob0sFYOolfSsn7BWzqMDJDoiU4=
+github.com/wbing441282413/goRPCTest v0.0.0-20211212062446-f27f191b447f h1:5eYawE7ckUO61KvBsSGzFqakfoh4vOmhu4Wxfvikz+8=
+github.com/wbing441282413/goRPCTest v0.0.0-20211212062446-f27f191b447f/go.mod h1:0Z4DpVGtcql123MGRob0sFYOolfSsn7BWzqMDJDoiU4=
 go.opentelemetry.io/proto/otlp v0.7.0/go.mod h1:PqfVotwruBrMGOCsRd/89rSnXhoiJIqeYNgFYFoEGnI=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=

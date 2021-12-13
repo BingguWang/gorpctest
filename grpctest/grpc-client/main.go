@@ -16,8 +16,9 @@ const (
 )
 
 func main() {
-	//TSL连接
-	cred, err := credentials.NewClientTLSFromFile("../keys/server.pem", "www.eline.com") //第二个参数是server name，就是生成证书时写的
+	// 加了TSL证书验证后，客户端必须要加证书才能调用到服务
+	// TSL连接,  grpc.WithInsecure()选项跳过了对服务器证书的验，这是不安全的
+	cred, err := credentials.NewClientTLSFromFile("../keys/server.pem", "localhost") //第二个参数是server name，就是生成证书时写的
 
 	// conn, err := grpc.Dial(Address, grpc.WithInsecure()) //会返回ClientConn
 	conn, err := grpc.Dial(Address, grpc.WithTransportCredentials(cred)) //会返回ClientConn
@@ -41,4 +42,10 @@ func main() {
 	}
 
 	fmt.Printf("Recevied: %v\n", resp)
+
+	conn2, err := grpc.Dial(Address, grpc.WithTransportCredentials(cred)) //会返回ClientConn
+	client2 := pb.NewHelloServiceClient(conn2)
+	resp2, err := client2.GetHello(context.Background(), &pb.HelloRequest{UserName: "wb"})
+	fmt.Println(resp2)
+
 }
